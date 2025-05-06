@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaditri Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ff6b6b;
+        }
+        
+        /* Hero Section - Carousel */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .carousel {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-content {
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .slide-content h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .slide-content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            position: relative;
+            color: #333;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #ff6b6b;
+            margin: 10px auto;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .category {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .category img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .category:hover img {
+            transform: scale(1.1);
+        }
+        
+        .category-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 16px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .service {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .service-icon {
+            font-size: 36px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .service-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-img {
+            flex: 1;
+        }
+        
+        .about-img img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .about-text {
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Video Section */
+        .video {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        textarea.form-control {
+            height: 150px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .footer-info, .footer-links, .footer-contact {
+            flex: 1;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+        
+        /* Helper Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .nav-wrap {
+                flex-direction: column;
+            }
+            
+            .category-grid, .product-grid, .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-info, .footer-links, .footer-contact {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-wrap">
+                <div class="logo">AADITRI COLLECTION</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#men">Men</a></li>
+                        <li><a href="#women">Women</a></li>
+                        <li><a href="#family">Family</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Carousel -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="carousel">
+                <div class="slide active">
+                    <img src="116 (1).jpg" alt="Fashion">
+                    <div class="slide-content">
+                        <!-- <h2>Premium Clothing Collection</h2>
+                        <p>Discover the latest trends in fashion</p>
+                        <a href="#" class="btn">Shop Now</a> -->
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="112 (1).jpg" alt="">
+                    <div class="slide-content">
+                        <!-- <h2>Men's Collection</h2>
+                        <p>Stylish & comfortable clothing for men</p>
+                        <a href="#men" class="btn">View Collection</a> -->
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="116 (1).jpg" alt="Women's Collection">
+                    <div class="slide-content">
+                        <!-- <h2>Women's Collection</h2>
+                        <p>Elegant & fashionable clothing for women</p>
+                        <a href="#women" class="btn">View Collection</a> -->
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="" alt="Family Collection">
+                    <div class="slide-content">
+                        <!-- <h2>Family Collection</h2>
+                        <p>Clothing for the whole family</p>
+                        <a href="#family" class="btn">View Collection</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Men's Section -->
+    <section class="products" id="men">
+        <div class="container">
+            <h2 class="section-title">SAREE'S Collection</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="n.jpeg" alt="Men's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Silk Saree</h3>
+                        <p class="product-price">$49.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (3).jpeg" alt="Men's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Silk Saree</h3>
+                        <p class="product-price">$149.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (6).jpeg" alt="Men's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Silk Saree</h3>
+                        <p class="product-price">$79.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images.jpeg" alt="Men's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Silk Saree</h3>
+                        <p class="product-price">$59.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Women's Section -->
+    <section class="products" id="women">
+        <div class="container">
+            <!-- <h2 class="section-title">SARRR'S COLLECTION</h2> -->
+            <div class="product-grid">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="100.jpg" alt="Women's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Women's Summer Dress</h3>
+                        <p class="product-price">$79.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (2).jpeg" alt="Women's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Women's Blouse</h3>
+                        <p class="product-price">$39.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (3).jpeg" alt="Women's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Women's Jeans</h3>
+                        <p class="product-price">$69.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images (2).jpeg" alt="Women's Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Women's Jacket</h3>
+                        <p class="product-price">$99.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Section -->
+    <section class="products" id="family">
+        <div class="container">
+            <h2 class="section-title">BANGLES Collection</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (6).jpeg" alt="Family Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Family Package</h3>
+                        <p class="product-price">$199.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download.jpeg" alt="Kids Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kids Collection</h3>
+                        <p class="product-price">$89.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images (1).jpeg" alt="Baby Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Baby Collection</h3>
+                        <p class="product-price">$59.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images (2).jpeg" alt="Teen Product">   <!--  /api/placeholder/300/300  isme ye wala size lge ga -->
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Teen Collection</h3>
+                        <p class="product-price">$79.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- PERFUME -->
+    <section class="products" id="family">
+        <div class="container">
+            <h2 class="section-title">PERFUME COLLECTION</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download (6).jpeg" alt="Family Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Family Package</h3>
+                        <p class="product-price">$199.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="download.jpeg" alt="Kids Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kids Collection</h3>
+                        <p class="product-price">$89.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images (1).jpeg" alt="Baby Product">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Baby Collection</h3>
+                        <p class="product-price">$59.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-img">
+                        <img src="images (2).jpeg" alt="Teen Product">   <!--  /api/placeholder/300/300  isme ye wala size lge ga -->
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Teen Collection</h3>
+                        <p class="product-price">$79.99</p>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!--  -->
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="service-grid">
+                <div class="service">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="service-title">Fast Delivery</h3>
+                    <p>We deliver your orders at your doorstep within 24 hours.</p>
+                </div>
+                <div class="service">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="service-title">Money Back</h3>
+                    <p>100% money back guarantee if you're not satisfied.</p>
+                </div>
+                <div class="service">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="service-title">24/7 Support</h3>
+                    <p>Our customer support team is available 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="images (3).jpeg" alt="About Us">
+                </div>
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Fashion Store was established in 2010 with a vision to provide high-quality clothing products at affordable prices. Over the years, we have expanded our product range to include men's, women's, and kids' clothing.</p>
+                    <p>We source our materials from the finest suppliers and work with skilled craftsmen to create unique and stylish clothing products.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images (4).jpeg" alt="Gallery Image">
+                </div>
+                <div class="gallery-item">
+                    <img src="images (1).jpeg" alt="Gallery Image">
+                </div>
+                <div class="gallery-item">
+                    <img src="download (1).jpeg" alt="Gallery Image">
+                </div>
+                <div class="gallery-item">
+                    <img src="download (5).jpeg" alt="Gallery Image">
+                </div>
+                <div class="gallery-item">
+                    <img src="download (6).jpeg" alt="Gallery Image">
+                </div>
+                <div class="gallery-item">
+                    <img src="" alt="Gallery Image">  <!--  /api/placeholder/400/400  isme ye wala size lge ga -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video" id="video">
+        <div class="container">
+            <h2 class="section-title">Watch Our Story</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" class="form-control" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Fashion Store</h3>
+                    <p>Your one-stop shop for all your clothing needs.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#men">Men</a></li>
+                        <li><a href="#women">Women</a></li>
+                        <li><a href="#family">Family</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@fashionstore.com</p>
+                    <p>Phone: +1 234 567 890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Fashion Store. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            // Auto Slide
+            setInterval(function() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 3000);
+
+            // Initialize
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
